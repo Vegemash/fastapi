@@ -5,11 +5,7 @@ import warnings
 from collections import deque
 from collections.abc import Mapping, Sequence
 from dataclasses import is_dataclass
-from typing import (
-    Annotated,
-    Any,
-    Union,
-)
+from typing import Annotated, Any, Union
 
 from fastapi.types import UnionType
 from pydantic import BaseModel
@@ -93,7 +89,7 @@ def field_annotation_is_complex(annotation: Union[type[Any], None]) -> bool:
         return any(field_annotation_is_complex(arg) for arg in get_args(annotation))
 
     if origin is Annotated:
-        return field_annotation_is_complex(get_args(annotation)[0])
+        return field_annotation_is_complex(get_args(annotation)[0])  # this is busted
 
     return (
         _annotation_is_complex(annotation)
